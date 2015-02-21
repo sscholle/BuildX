@@ -4,79 +4,106 @@ import biz.brainpowered.game.buildx.BuildX;
 import biz.brainpowered.game.buildx.Core;
 import biz.brainpowered.game.buildx.asset.Assets;
 import biz.brainpowered.game.buildx.gameitem.GameItem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.Vector;
+import java.util.*;
 
 /**
  * Created by Sebnic on 2015/02/14.
  */
 public class DemoScene extends Scene {
-    private SpriteBatch batch;
-    // scene game items
-    GameItem roof;
-    GameItem ground;
-    GameItem walls;
-    private BitmapFont bmFont;
+    String verbNoun = "BUILD HOUSE";
+    String action = "GO!";
+    String winText = "WIN!";
+    String looseText = "LOOSE!";
+
+    float elapsedTime;
+    float elapsedRunTime;
+    float elapsedEndTime;
 
     public DemoScene(){
-        super();
+        super(5.0f);
         this.batch = Core.batcher;
+        bmFont = Assets.font;
+        elapsedTime = 0.0f;
+        elapsedRunTime = 0.0f;
+        elapsedEndTime = 0.0f;
     }
 
-    public void checkConnections(){
-
-    }
-
-    public void preConnect(Vector<GameItem> gameItems){
-
+    public void reset(){
+        elapsedTime = 0.0f;
+        elapsedRunTime = 0.0f;
+        elapsedEndTime = 0.0f;
     }
 
     public void setup(){
         super.setup();
+        reset();
+        stack = new Stack<GameItem>();
+        drawables = new ArrayList<GameItem>();
+        stack.push(new GameItem(Assets.roof, 15, 40));
+        drawables.add(stack.peek());
+        stack.push(new GameItem(Assets.walls, 20, 9));
+        drawables.add(stack.peek());
+        stack.push(new GameItem(Assets.ground, 0, 0));
+        drawables.add(stack.peek());
 
-        ground = new GameItem(Assets.ground, 0, 0);
-        walls = new GameItem(Assets.walls, 20, 4);
-        roof = new GameItem(Assets.roof, 15, 40);
+        connect(stack.pop(), stack.pop());
+        currentGameItem = stack.pop();
+        currentGameItem.setConnecting(true);
 
-        bmFont = Assets.font;
+        Gdx.input.setInputProcessor(currentGameItem);
+
+        state = PRE_RUN;
     }
-
 
     public void update(float delta){
-        //anything else - do stuff
-        //currentGameItem.update(delta, batch);
 
+        if(state == PRE_RUN){
+            if(preRun >= elapsedTime) {
+                float stringLength = bmFont.getBounds(verbNoun).width;
+                float stringHeight = bmFont.getBounds(verbNoun).height;
+                bmFont.setColor(new Color(1f, 1f, 1f, 1.0f));
+                bmFont.draw(batch, verbNoun, (BuildX.V_WIDTH / 2) - stringLength / 2, (BuildX.V_HEIGHT / 2 + stringHeight / 2));
+            }else {
+                state = RUN;
+            }
 
-        ground.update(delta, batch);
-        walls.update(delta, batch);
-        roof.update(delta, batch);
+        }else if(state == RUN){
+            checkConnections();
+            for (int x = 0; x < drawables.size(); x++){
+                drawables.get(x).update(delta, batch);
+            }
 
-        String text = "BUILD HOUSE";
-        float stringLength = bmFont.getBounds(text).width;
-        bmFont.setColor(new Color(1f, 1f, 1f, 1.0f));
-        bmFont.draw(batch, text, (BuildX.V_WIDTH / 2) - stringLength/2, (BuildX.V_WIDTH / 2));
-    }
+            String text = ""+(runTime-elapsedRunTime);
+            if(text.length() > 4) text = text.substring(0,4);
 
-    public void win(){
+            bmFont.setColor(new Color(1f, 1f, 1f, 1.0f));
+            bmFont.draw(batch, text, 1, (BuildX.V_HEIGHT - 1));
 
-    }
+            if (elapsedRunTime >= runTime)
+                loose();
 
-    public void loose(){
+            elapsedRunTime += Gdx.graphics.getDeltaTime();
 
-    }
+        }else if(state == END){
 
-    public boolean isRunning(){
-        return isRunning;
-    }
+            String text = (didWin) ? winText: looseText ;
+            float stringLength = bmFont.getBounds(text).width;
+            float stringHeight = bmFont.getBounds(text).height;
+            bmFont.setColor(new Color(1f, 1f, 1f, 1.0f));
+            bmFont.draw(batch, text, (BuildX.V_WIDTH / 2) - stringLength / 2, BuildX.V_HEIGHT / 2 + stringHeight / 2);
 
-    public boolean isFinished(){
-        return isFinished;
-    }
+            if(elapsedEndTime >= endTime){
+                state = FINISHED;
+            }
 
-    public boolean didWin(){
-        return didWin;
+            elapsedEndTime += Gdx.graphics.getDeltaTime();
+        }
+
+        elapsedTime += Gdx.graphics.getDeltaTime();
     }
 }

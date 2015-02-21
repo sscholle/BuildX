@@ -61,4 +61,8 @@ public class BuildX extends Game {
         }
         super.render();
     }
+
+    public void dispose(){
+
+    }
 }

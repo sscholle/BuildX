@@ -21,7 +21,7 @@ public class Core {
         assetLoader = new AssetLoader();
         batcher = new SpriteBatch();
         timelineManager = new TimelineManager();
-        gameManager = new GameManager();
+        gameManager = new GameManager(1);
 
         //entityManager = new EntityManager();
     }

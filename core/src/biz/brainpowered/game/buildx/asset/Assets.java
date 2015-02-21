@@ -17,16 +17,16 @@ import java.util.Iterator;
  */
 
 public class Assets {
-    public static Texture background;
+    //chuck
+
+    // keep
+    public static Texture menu;
     public static Texture ground;
     public static Texture roof;
     public static Texture walls;
-    public static Texture emblem;
-    public static Texture player;
-    //public static Texture title;
-    //public static Texture menu;
-    public static Texture progressbar;
-    public static TextureRegion backgroundRegion;
+
+
+
 
     public static Texture items;
     public static TextureRegion mainMenu;
@@ -64,14 +64,12 @@ public class Assets {
     static HashMap<String, TextBounds> tbMap = new HashMap<String, TextBounds>();
 
     public static void init(){
-        allAssets.put("BuildHouse.png", "Texture");
+        allAssets.put("items/Menu.png", "Texture");
         allAssets.put("items/ground.png", "Texture");
         allAssets.put("items/roof.png", "Texture");
         allAssets.put("items/walls.png", "Texture");
         allAssets.put("font/small.fnt", "BitmapFont");
-        //allAssets.put("font/gunship_blk/gunship_blk21.fnt", "BitmapFont");
-        allAssets.put("images/emblem.png", "Texture");
-        allAssets.put("images/player.png", "Texture");
+
         isInited = true;
     }
 
@@ -85,18 +83,10 @@ public class Assets {
 
     public static boolean isLoaded(){
         if(loader.finishedLoading){
-            background = getTexture("BuildHouse.png");
+            menu = getTexture("items/Menu.png");
             ground = getTexture("items/ground.png");
             roof = getTexture("items/roof.png");
             walls = getTexture("items/walls.png");
-            backgroundRegion = new TextureRegion(background, 0, 0, 384, 512);
-            emblem = getTexture("images/emblem.png");
-            player = getTexture("images/player.png");
-            bobJump = new Animation(0.2f, new TextureRegion(player, 0, 0, 60, 45), new TextureRegion(player, 0, 0, 60, 45));
-            bobFall = new Animation(0.2f, new TextureRegion(player, 0, 0, 60, 45), new TextureRegion(player, 0, 0, 60, 45));
-            bobHit = new Animation(0.2f, new TextureRegion(player, 0, 0, 60, 45));
-
-            //titleFont = getFont("font/gunship/gunship42.fnt");
             font = getFont("font/small.fnt");
             return true;
         }

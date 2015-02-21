@@ -11,6 +11,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.*;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
@@ -35,7 +37,32 @@ public class MainMenuScreen implements Screen {
 
 GameManager gameManager;
 
+    public int state;
+    public int MENU = 0;
+    public int GAME = 1;
+
+    Rectangle soundBounds;
+    Rectangle playBounds;
+    Rectangle exitBounds;
+    Rectangle highscoresBounds;
+    Rectangle helpBounds;
+    Vector3 touchPoint;
+
+    int screenWidth;
+    int screenHeight;
+
     public MainMenuScreen(Game g){
+        state = MENU;
+        screenWidth = BuildX.V_WIDTH;
+        screenHeight = BuildX.V_HEIGHT;
+
+        soundBounds = new Rectangle(0, 0, 64, 64);
+        playBounds = new Rectangle(screenWidth / 2 - 10, screenHeight - 25, 20, 7);
+        exitBounds = new Rectangle(screenWidth / 2 - 8, screenHeight - 34, 16, 7);
+        highscoresBounds = new Rectangle(160 - 150, 200 - 18, 300, 36);
+        helpBounds = new Rectangle(160 - 150, 200 - 18 - 36, 300, 36);
+        touchPoint = new Vector3();
+
         create();
         this.g=g;
         //todo: dispose previous screen
@@ -71,15 +98,59 @@ GameManager gameManager;
 
     }
 
+    public void update () {
+        if (state == MENU && Gdx.input.justTouched()) {
+            camera.unproject(touchPoint.set(Gdx.input.getX(), Gdx.input.getY(), 0));
+
+            if (playBounds.contains(touchPoint.x, touchPoint.y)) {
+                //Assets.playSound(Assets.clickSound);
+                state = GAME;
+                return;
+            }
+            if (exitBounds.contains(touchPoint.x, touchPoint.y)) {
+                //Assets.playSound(Assets.clickSound);
+                Gdx.app.exit();
+                return;
+            }
+//            if (highscoresBounds.contains(touchPoint.x, touchPoint.y)) {
+//                Assets.playSound(Assets.clickSound);
+//                game.setScreen(new HighscoresScreen(game));
+//                return;
+//            }
+//            if (helpBounds.contains(touchPoint.x, touchPoint.y)) {
+//                Assets.playSound(Assets.clickSound);
+//                game.setScreen(new HelpScreen(game));
+//                return;
+//            }
+//            if (soundBounds.contains(touchPoint.x, touchPoint.y)) {
+//                Assets.playSound(Assets.clickSound);
+//                Settings.soundEnabled = !Settings.soundEnabled;
+//                if (Settings.soundEnabled)
+//                    Assets.music.play();
+//                else
+//                    Assets.music.pause();
+//            }
+        }
+    }
+
     public void render (float delta) {
+        update();
+        draw(delta);
+    }
+
+    public void draw(float delta){
         Gdx.gl.glClearColor(1, 1, 1, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-       // batch.disableBlending();
         batch.begin();
-        gameManager.update(delta);
-        batch.end();
+        // batch.disableBlending();
+        if (state == MENU){
+            batch.draw(Assets.menu, 0, 0);
 
+        }else if(state == GAME){
+            gameManager.update(delta);
+        }
+        batch.end();
     }
 
     @Override
