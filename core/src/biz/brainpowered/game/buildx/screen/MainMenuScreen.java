@@ -19,23 +19,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class MainMenuScreen implements Screen {
-    Skin skin;
-    Stage stage;
     SpriteBatch batch;
-
     Game g;
-
     int appWidth;
     int appHeight;
     OrthographicCamera camera;
-
-    private TextButton playButton, hiscoreButton, exitButton;
-
     private BitmapFont bmFont;
-    //private String fontText = "Splash Screen";
-    Viewport viewport;
-
-GameManager gameManager;
+    GameManager gameManager;
 
     public int state;
     public int MENU = 0;
@@ -65,8 +55,6 @@ GameManager gameManager;
 
         create();
         this.g=g;
-        //todo: dispose previous screen
-        //previousScreen.dispose();
 
         appWidth = BuildX.V_WIDTH;
         appHeight = BuildX.V_HEIGHT;
@@ -85,17 +73,10 @@ GameManager gameManager;
         camera.update();
         batch.setProjectionMatrix(camera.combined);
 
-        // menu graphic
-
-        // hit detect on regions
-            // start game loop, etc
-
-
         bmFont = Assets.font;
 
         gameManager = Core.gameManager;
         gameManager.init();
-
     }
 
     public void update () {
@@ -164,7 +145,7 @@ GameManager gameManager;
     @Override
     public void dispose () {
         Gdx.app.log("Main Menu Screen", "dispose called");
-
+        g.dispose();
     }
 
     @Override

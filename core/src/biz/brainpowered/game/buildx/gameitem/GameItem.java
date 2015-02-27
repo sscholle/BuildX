@@ -14,17 +14,17 @@ import java.util.Vector;
 /**
  * Created by Sebnic on 2015/02/14.
  */
-public class GameItem implements InputProcessor{
-    private Vector<Vector2> connectionPoints;
-    private Vector<Vector2> receptionPoints;
-    private Sprite sprite;
-    private Animation animation;
-    private boolean isConnecting;
-    private boolean isReceiving;
-    private float x;
-    private float y;
-    float elapsedTime;
-    float lastInputCheck;
+public class GameItem{
+    protected Vector<Vector2> connectionPoints;
+    protected Vector<Vector2> receptionPoints;
+    protected Sprite sprite;
+    protected Animation animation;
+    protected boolean isConnecting;
+    protected boolean isReceiving;
+    protected float x;
+    protected float y;
+    protected float elapsedTime;
+    protected float lastInputCheck;
 
     public GameItem(Texture texture, int x, int y){
         sprite = new Sprite(texture);
@@ -41,7 +41,6 @@ public class GameItem implements InputProcessor{
 
         isConnecting = false;
         isReceiving = false;
-
 
         elapsedTime = 0;
         lastInputCheck = 0;
@@ -119,45 +118,5 @@ public class GameItem implements InputProcessor{
             lastInputCheck = elapsedTime;
         }
         elapsedTime += Gdx.graphics.getDeltaTime();
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return false;
-    }
-
-    @Override
-    public boolean keyTyped(char character) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        return false;
-    }
-
-    @Override
-    public boolean touchDragged(int screenX, int screenY, int pointer) {
-        return false;
-    }
-
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        return false;
-    }
-
-    @Override
-    public boolean scrolled(int amount) {
-        return false;
     }
 }

@@ -1,7 +1,10 @@
 package biz.brainpowered.game.buildx.scene;
 
+import biz.brainpowered.game.buildx.BuildX;
 import biz.brainpowered.game.buildx.gameitem.GameItem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -33,6 +36,16 @@ public class Scene {
     protected int FINISHED = 3;
 
     protected boolean didWin = false;
+
+    protected String verbNoun = "BUILD X";
+    protected String action = "GO!";
+    protected String winText = "GOOD JOB!";
+    protected String looseText = "TOO SLOW!";
+
+    protected float elapsedTime;
+    protected float elapsedRunTime;
+    protected float elapsedEndTime;
+
 
     public Scene(float time){
         runTime = time;// + verbFadeTime;
@@ -66,11 +79,42 @@ public class Scene {
     }
 
     public void setup(){
-
         didWin = false;
     }
 
+    public int randomYPos(Texture asset){
+        return (int) (Math.random() * (BuildX.V_WIDTH - asset.getWidth()));
+    }
+
+    public void reset(){
+        elapsedTime = 0.0f;
+        elapsedRunTime = 0.0f;
+        elapsedEndTime = 0.0f;
+    }
+
     public void update(float delta){}
+
+    public void drawVerb(){
+        float stringLength = bmFont.getBounds(verbNoun).width;
+        float stringHeight = bmFont.getBounds(verbNoun).height;
+        bmFont.setColor(new Color(1f, 1f, 1f, 1.0f));
+        bmFont.draw(batch, verbNoun, (BuildX.V_WIDTH / 2) - stringLength / 2, (BuildX.V_HEIGHT / 2 + stringHeight / 2));
+    }
+
+    public void drawTimer(){
+        String text = ""+(runTime-elapsedRunTime);
+        if(text.length() > 4) text = text.substring(0, 4);
+        bmFont.setColor(new Color(1f, 1f, 1f, 1.0f));
+        bmFont.draw(batch, text, 1, (BuildX.V_HEIGHT - 1));
+    }
+
+    public void drawWinState(){
+        String text = (didWin) ? winText: looseText ;
+        float stringLength = bmFont.getBounds(text).width;
+        float stringHeight = bmFont.getBounds(text).height;
+        bmFont.setColor(new Color(1f, 1f, 1f, 1.0f));
+        bmFont.draw(batch, text, (BuildX.V_WIDTH / 2) - stringLength / 2, BuildX.V_HEIGHT / 2 + stringHeight / 2);
+    }
 
     public void win(){
         didWin = true;

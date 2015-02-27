@@ -55,7 +55,6 @@ public class BuildX extends Game {
         }else if(isRunning){
             if (getScreen() == null){
                 System.out.println("set Main menu");
-                //setScreen(new SplashScreen(this));
                 setScreen(new MainMenuScreen(this));
             }
         }
@@ -63,6 +62,6 @@ public class BuildX extends Game {
     }
 
     public void dispose(){
-
+        Assets.dispose();
     }
 }

@@ -8,10 +8,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
  * Created by Sebnic on 2015/01/02.
  */
 public class Core {
-   // public static String things;
-    //public static Game activeGame;
-    //public static EntityManager entityManager;
-    //etc..
     public static AssetLoader assetLoader;
     public static SpriteBatch batcher;
     public static TimelineManager timelineManager;
@@ -21,8 +17,6 @@ public class Core {
         assetLoader = new AssetLoader();
         batcher = new SpriteBatch();
         timelineManager = new TimelineManager();
-        gameManager = new GameManager(1);
-
-        //entityManager = new EntityManager();
+        gameManager = new GameManager(1); // todo: param?
     }
 }

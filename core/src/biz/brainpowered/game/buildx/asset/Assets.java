@@ -24,6 +24,8 @@ public class Assets {
     public static Texture ground;
     public static Texture roof;
     public static Texture walls;
+    public static Texture robotHead;
+    public static Texture robotBody;
 
 
 
@@ -68,6 +70,8 @@ public class Assets {
         allAssets.put("items/ground.png", "Texture");
         allAssets.put("items/roof.png", "Texture");
         allAssets.put("items/walls.png", "Texture");
+        allAssets.put("items/robot-head.png", "Texture");
+        allAssets.put("items/robot-body.png", "Texture");
         allAssets.put("font/small.fnt", "BitmapFont");
 
         isInited = true;
@@ -87,6 +91,8 @@ public class Assets {
             ground = getTexture("items/ground.png");
             roof = getTexture("items/roof.png");
             walls = getTexture("items/walls.png");
+            robotHead = getTexture("items/robot-head.png");
+            robotBody = getTexture("items/robot-body.png");
             font = getFont("font/small.fnt");
             return true;
         }
@@ -94,8 +100,9 @@ public class Assets {
     }
 
     public static void createFontBounds(String key, BitmapFont fnt, String text){
-        tbMap.put(key, fnt.getBounds(text));
+        tbMap.put(key, fnt.getBounds(text)); // storing bounds of fonts.. experimantal
     }
+
     public static TextBounds getFontBounds(String key){
         return tbMap.get(key);
     }
@@ -182,5 +189,14 @@ public class Assets {
 
     public static void playSound (Sound sound) {
         if (Settings.soundEnabled) sound.play(1);
+    }
+
+    public static void dispose(){
+
+        menu.dispose();
+        ground.dispose();
+        roof.dispose();
+        walls.dispose();
+        font.dispose();
     }
 }

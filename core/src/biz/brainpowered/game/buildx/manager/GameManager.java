@@ -1,10 +1,12 @@
 package biz.brainpowered.game.buildx.manager;
 
-import biz.brainpowered.game.buildx.scene.DemoScene;
+import biz.brainpowered.game.buildx.scene.BuildHouseScene;
+import biz.brainpowered.game.buildx.scene.BuildRobotScene;
 import biz.brainpowered.game.buildx.scene.Scene;
 import biz.brainpowered.game.buildx.scene.WinScene;
 import com.badlogic.gdx.Game;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -12,7 +14,7 @@ import java.util.Vector;
  */
 public class GameManager {
     private Game game;
-    private Vector<Scene> gameScenes;
+    private ArrayList<Scene> gameScenes;
     private Scene currentScene;
     private WinScene winScene;
     private WinScene looseScene; // to create loose scene
@@ -31,14 +33,13 @@ public class GameManager {
 
     public void init(){
         winScene = new WinScene();
-       // winScene.setup();
         looseScene = new WinScene();
-        //looseScene.setup();
 
-        gameScenes = new Vector<Scene>();
-        gameScenes.add(new DemoScene());
-        currentScene = gameScenes.firstElement();
-
+        gameScenes = new ArrayList<Scene>();
+        gameScenes.add(new BuildHouseScene());
+        gameScenes.add(new BuildRobotScene());
+//        gameScenes.add(new BuildDamScene());
+        currentScene = getNextGameScene();
         currentScene.setup();
     }
 
@@ -57,6 +58,11 @@ public class GameManager {
         }
     }
 
+    public Scene getNextGameScene(){
+
+        return gameScenes.get((int)(Math.random() * gameScenes.size()));
+    }
+
     public void update(float delta){
 
         if(currentScene.isRunning()) {
@@ -66,7 +72,7 @@ public class GameManager {
 
             if(winScene == currentScene || looseScene == currentScene){
                 //win scene is fin - next game scene
-                currentScene = gameScenes.firstElement();
+                currentScene = getNextGameScene();
                 currentScene.setup();
 
             }else{
@@ -78,6 +84,7 @@ public class GameManager {
                     winScene.setWins(wins);
                     winScene.setLosses(losses);
                     currentScene = winScene;
+
                 }else{
                     losses += 1;
                     if (losses == 3){
