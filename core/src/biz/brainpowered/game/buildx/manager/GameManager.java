@@ -23,6 +23,7 @@ public class GameManager {
     private int losses;
     private float totalTime;
 
+    private int lastGameIndex = 0;
     private int currentGameIndex = -1;
 
     public GameManager(int firstLevel){
@@ -37,10 +38,10 @@ public class GameManager {
         looseScene = new WinScene();
 
         gameScenes = new ArrayList<Scene>();
-        //gameScenes.add(new BuildHouseScene());
-        //gameScenes.add(new BuildRobotScene());
+        gameScenes.add(new BuildHouseScene());
+        gameScenes.add(new BuildRobotScene());
         gameScenes.add(new BuildDamScene());
-//        gameScenes.add(new BuildDamScene());
+        gameScenes.add(new HammerNailScene());
         currentScene = getNextGameScene();
         currentScene.setup();
     }
@@ -66,11 +67,11 @@ public class GameManager {
      * @return
      */
     public Scene getNextGameScene(){
-        int nextGameIndex = 0;
+        //int nextGameIndex = 0;
         do{
-            nextGameIndex = (int)(Math.random() * gameScenes.size());
-            if(nextGameIndex != currentGameIndex) currentGameIndex = nextGameIndex;
-        } while(nextGameIndex != currentGameIndex);
+            currentGameIndex = (int)(Math.random() * gameScenes.size());
+            if(lastGameIndex != currentGameIndex) lastGameIndex = currentGameIndex;
+        } while(lastGameIndex != currentGameIndex);
         return gameScenes.get(currentGameIndex);
     }
 

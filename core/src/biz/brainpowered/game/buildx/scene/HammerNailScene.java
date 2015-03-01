@@ -1,25 +1,27 @@
 package biz.brainpowered.game.buildx.scene;
 
-import biz.brainpowered.game.buildx.BuildX;
 import biz.brainpowered.game.buildx.Core;
 import biz.brainpowered.game.buildx.asset.Assets;
 import biz.brainpowered.game.buildx.gameitem.GameItem;
+import biz.brainpowered.game.buildx.gameitem.HammerGameItem;
 import biz.brainpowered.game.buildx.gameitem.RobotBodyGameItem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
 /**
- * Created by Sebnic on 2015/02/14.
+ * Created by Sebastian on 2015/03/01.
  */
-public class BuildRobotScene extends GameScene {
+public class HammerNailScene extends GameScene {
 
-    public BuildRobotScene(){
+    public HammerNailScene(){
         super(5.0f);
         this.batch = Core.batcher;
         bmFont = Assets.font;
-        verbNoun = "BUILD ROBOT";
+        verbNoun = "HAMMER NAIL";
+        connectionDistanceX = 5;
     }
 
     public void reset(){
@@ -31,14 +33,16 @@ public class BuildRobotScene extends GameScene {
         reset();
         stack = new Stack<GameItem>();
         drawables = new ArrayList<GameItem>();
-        stack.push(new GameItem(Assets.robotHead, randomYPos(Assets.robotHead), 40));
+        stack.push(new HammerGameItem(Assets.hammer, randomYPos(Assets.hammer), 40));
         drawables.add(stack.peek());
-        stack.push(new RobotBodyGameItem(Assets.robotBody, 20, 9));
+        stack.peek().setConnectionPoint(0, new Vector2(stack.peek().getSprite().getWidth() / 2 + 14, 0.0f));
+        stack.push(new GameItem(Assets.nail, randomYPos(Assets.nail), 0));
         drawables.add(stack.peek());
-        stack.push(new GameItem(Assets.ground, 0, 0));
-        drawables.add(stack.peek());
+        //stack.push(new GameItem(Assets.ground, 0, 0));
+        //drawables.add(stack.peek());
 
-        connect(stack.pop(), stack.pop());
+        //connect(stack.pop(), stack.pop());
+        receivingItem = stack.pop();// pop nail
         currentGameItem = stack.pop();
         currentGameItem.setConnecting(true);
 

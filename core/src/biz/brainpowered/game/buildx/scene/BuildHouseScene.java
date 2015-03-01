@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * Created by Sebnic on 2015/02/14.
  */
-public class BuildHouseScene extends Scene {
+public class BuildHouseScene extends GameScene {
 
     public BuildHouseScene(){
         super(5.0f);
