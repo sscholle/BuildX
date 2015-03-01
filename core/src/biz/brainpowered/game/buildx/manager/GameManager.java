@@ -1,9 +1,6 @@
 package biz.brainpowered.game.buildx.manager;
 
-import biz.brainpowered.game.buildx.scene.BuildHouseScene;
-import biz.brainpowered.game.buildx.scene.BuildRobotScene;
-import biz.brainpowered.game.buildx.scene.Scene;
-import biz.brainpowered.game.buildx.scene.WinScene;
+import biz.brainpowered.game.buildx.scene.*;
 import com.badlogic.gdx.Game;
 
 import java.util.ArrayList;
@@ -26,7 +23,6 @@ public class GameManager {
     private int losses;
     private float totalTime;
 
-    private int lastGameIndex = 0;
     private int currentGameIndex = -1;
 
     public GameManager(int firstLevel){
@@ -41,8 +37,9 @@ public class GameManager {
         looseScene = new WinScene();
 
         gameScenes = new ArrayList<Scene>();
-        gameScenes.add(new BuildHouseScene());
-        gameScenes.add(new BuildRobotScene());
+        //gameScenes.add(new BuildHouseScene());
+        //gameScenes.add(new BuildRobotScene());
+        gameScenes.add(new BuildDamScene());
 //        gameScenes.add(new BuildDamScene());
         currentScene = getNextGameScene();
         currentScene.setup();
@@ -65,6 +62,7 @@ public class GameManager {
 
     /**
      * randomly select and return a game Scene that isn't the same as last scene
+     * note: requires a minimum of 2 gameScenes
      * @return
      */
     public Scene getNextGameScene(){

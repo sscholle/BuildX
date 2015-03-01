@@ -32,18 +32,29 @@ public class GameItem{
         sprite.setY(y);
         this.x = x;
         this.y = y;
+        init();
+    }
 
+    public void init() {
         connectionPoints = new Vector<Vector2>();
         receptionPoints = new Vector<Vector2>();
 
-        connectionPoints.add(new Vector2(texture.getWidth()/2, 0.0f)); //bottom center
-        receptionPoints.add(new Vector2(texture.getWidth()/2, texture.getHeight())); //top center
+        connectionPoints.add(new Vector2(sprite.getWidth() / 2, 0.0f)); //bottom center
+        receptionPoints.add(new Vector2(sprite.getWidth() / 2, sprite.getHeight())); //top center
 
         isConnecting = false;
         isReceiving = false;
 
         elapsedTime = 0;
         lastInputCheck = 0;
+    }
+
+    public void setConnectionPoint(int index, Vector2 point) {
+        connectionPoints.set(index, point);
+    }
+
+    public void setReceptionPoint(int index, Vector2 point) {
+        receptionPoints.set(index, point);
     }
 
     public float getX() {
@@ -62,6 +73,14 @@ public class GameItem{
     public void setY(float y) {
         sprite.setY(y);
         this.y = y;
+    }
+
+    public Sprite getSprite() {
+        return sprite;
+    }
+
+    public void setSprite(Sprite sp) {
+        sprite = sp;
     }
 
     public Vector<Vector2> getReceptionPoints() {

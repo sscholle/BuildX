@@ -4,6 +4,7 @@ import biz.brainpowered.game.buildx.Core;
 import biz.brainpowered.game.buildx.asset.Assets;
 import biz.brainpowered.game.buildx.gameitem.GameItem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -11,7 +12,7 @@ import java.util.Stack;
 /**
  * Created by Sebastian on 2015/03/01.
  */
-public class BuildDamScene extends Scene {
+public class BuildDamScene extends GameScene {
 
     /**
      * todo: add param for difficulty/time
@@ -36,8 +37,10 @@ public class BuildDamScene extends Scene {
         drawables.add(stack.peek());
         stack.push(new GameItem(Assets.damWall, 20, 9));
         drawables.add(stack.peek());
+        stack.peek().setReceptionPoint(0, new Vector2(stack.peek().getSprite().getWidth() / 2 + 3, stack.peek().getSprite().getHeight()));
         stack.push(new GameItem(Assets.damGround, 0, 0));
         drawables.add(stack.peek());
+        stack.peek().setReceptionPoint(0, new Vector2(stack.peek().getSprite().getWidth() / 2 - 6, stack.peek().getSprite().getHeight() / 2 - 3));
 
         connect(stack.pop(), stack.pop());
         currentGameItem = stack.pop();
@@ -46,30 +49,14 @@ public class BuildDamScene extends Scene {
     }
 
     public void update(float delta){
+        super.update(delta);
 
         if(state == PRE_RUN){
-            if(preRun >= elapsedTime) {
-                drawVerb();
-            }else {
-                state = RUN;
-            }
 
         }else if(state == RUN){
-            checkConnections();
-            for (int x = 0; x < drawables.size(); x++){
-                drawables.get(x).update(delta, batch);
-            }
-            drawTimer();
-            if (elapsedRunTime >= runTime)
-                loose();
-            elapsedRunTime += Gdx.graphics.getDeltaTime();
 
         }else if(state == END){
-            drawWinState();
-            if(elapsedEndTime >= endTime){
-                state = FINISHED;
-            }
-            elapsedEndTime += Gdx.graphics.getDeltaTime();
+
         }
 
         elapsedTime += Gdx.graphics.getDeltaTime();
