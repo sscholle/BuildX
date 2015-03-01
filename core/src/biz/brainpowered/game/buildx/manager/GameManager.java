@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 /**
- * Created by Sebnic on 2015/02/14.
+ * Manages transition and scoring between Scenes (Games)
  */
 public class GameManager {
     private Game game;
@@ -18,11 +18,16 @@ public class GameManager {
     private Scene currentScene;
     private WinScene winScene;
     private WinScene looseScene; // to create loose scene
+
     private int level;
     private int seconds;
+
     private int wins;
     private int losses;
     private float totalTime;
+
+    private int lastGameIndex = 0;
+    private int currentGameIndex = -1;
 
     public GameManager(int firstLevel){
         setLevel(firstLevel);
@@ -58,9 +63,17 @@ public class GameManager {
         }
     }
 
+    /**
+     * randomly select and return a game Scene that isn't the same as last scene
+     * @return
+     */
     public Scene getNextGameScene(){
-
-        return gameScenes.get((int)(Math.random() * gameScenes.size()));
+        int nextGameIndex = 0;
+        do{
+            nextGameIndex = (int)(Math.random() * gameScenes.size());
+            if(nextGameIndex != currentGameIndex) currentGameIndex = nextGameIndex;
+        } while(nextGameIndex != currentGameIndex);
+        return gameScenes.get(currentGameIndex);
     }
 
     public void update(float delta){

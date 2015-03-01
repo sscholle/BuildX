@@ -17,18 +17,29 @@ import java.util.Iterator;
  */
 
 public class Assets {
-    //chuck
-
-    // keep
+    // Generic
+    public static BitmapFont font;
     public static Texture menu;
     public static Texture ground;
+    //House
     public static Texture roof;
     public static Texture walls;
+    //Robot
     public static Texture robotHead;
     public static Texture robotBody;
-
-
-
+    //Dam
+    public static Texture damGround;
+    public static Texture damWall;
+    public static Texture damCap;
+    //HammerNail
+    public static Texture hammer;
+    public static Texture nail;
+    //ChopWood
+    public static Texture hatchet;
+    public static Texture wood;
+    //ProgressBar
+    public static Texture progressBarOutline;
+    public static Texture progressBar;
 
     public static Texture items;
     public static TextureRegion mainMenu;
@@ -50,7 +61,6 @@ public class Assets {
     public static Animation squirrelFly;
     public static Animation platform;
     public static Animation breakingPlatform;
-    public static BitmapFont font;
     public static BitmapFont titleFont;
 
     public static Music music;
@@ -66,13 +76,22 @@ public class Assets {
     static HashMap<String, TextBounds> tbMap = new HashMap<String, TextBounds>();
 
     public static void init(){
+        allAssets.put("font/small.fnt", "BitmapFont");
         allAssets.put("items/Menu.png", "Texture");
         allAssets.put("items/ground.png", "Texture");
         allAssets.put("items/roof.png", "Texture");
         allAssets.put("items/walls.png", "Texture");
         allAssets.put("items/robot-head.png", "Texture");
         allAssets.put("items/robot-body.png", "Texture");
-        allAssets.put("font/small.fnt", "BitmapFont");
+        allAssets.put("items/dam-ground.png", "Texture");
+        allAssets.put("items/dam-wall.png", "Texture");
+        allAssets.put("items/dam-cap.png", "Texture");
+        allAssets.put("items/hammer.png", "Texture");
+        allAssets.put("items/nail.png", "Texture");
+        allAssets.put("items/hatchet.png", "Texture");
+        allAssets.put("items/wood.png", "Texture");
+        allAssets.put("items/progress-bar-outline.png", "Texture");
+        allAssets.put("items/progress-bar.png", "Texture");
 
         isInited = true;
     }
@@ -87,26 +106,50 @@ public class Assets {
 
     public static boolean isLoaded(){
         if(loader.finishedLoading){
+            font = getFont("font/small.fnt");
             menu = getTexture("items/Menu.png");
             ground = getTexture("items/ground.png");
             roof = getTexture("items/roof.png");
             walls = getTexture("items/walls.png");
             robotHead = getTexture("items/robot-head.png");
             robotBody = getTexture("items/robot-body.png");
-            font = getFont("font/small.fnt");
+            damGround = getTexture("items/dam-ground.png");
+            damWall = getTexture("items/dam-wall.png");
+            damCap = getTexture("items/dam-cap.png");
+            hammer = getTexture("items/hammer.png");
+            nail = getTexture("items/nail.png");
+            hatchet = getTexture("items/hatchet.png");
+            wood = getTexture("items/wood.png");
+            progressBarOutline = getTexture("items/progress-bar-outline.png");
+            progressBar = getTexture("items/progress-bar.png");
+
             return true;
         }
         return false;
     }
 
+    /**
+     * @deprecated internal optimisations prevent manual caching
+     * @param key
+     * @param fnt
+     * @param text
+     */
     public static void createFontBounds(String key, BitmapFont fnt, String text){
         tbMap.put(key, fnt.getBounds(text)); // storing bounds of fonts.. experimantal
     }
 
+    /**
+     * @deprecated
+     * @param key
+     * @return
+     */
     public static TextBounds getFontBounds(String key){
         return tbMap.get(key);
     }
 
+    /**
+     * todo: for disposal
+     */
     public static void unloadAssets(){
         while(keySetIterator.hasNext()){
             String key = keySetIterator.next();
@@ -114,9 +157,11 @@ public class Assets {
             System.out.println("unload asset key: " + key + " value: " + allAssets.get(key));
         }
     }
+
     public static Texture getTexture(String key){
         return loader.get(key, "Texture");
     }
+
     public static BitmapFont getFont(String key){
         return loader.get(key, "BitmapFont");
     }
@@ -191,12 +236,15 @@ public class Assets {
         if (Settings.soundEnabled) sound.play(1);
     }
 
+    /**
+     * todo: test
+     */
     public static void dispose(){
-
-        menu.dispose();
-        ground.dispose();
-        roof.dispose();
-        walls.dispose();
-        font.dispose();
+        unloadAssets();
+//        menu.dispose();
+//        ground.dispose();
+//        roof.dispose();
+//        walls.dispose();
+//        font.dispose();
     }
 }
