@@ -5,6 +5,9 @@ import biz.brainpowered.game.buildx.gameitem.GameItem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
+import java.util.ArrayList;
+import java.util.Stack;
+
 /**
  * Created by Sebastian on 2015/03/01.
  */
@@ -16,6 +19,12 @@ public class GameScene extends Scene {
         super(time);
         connectionDistanceX = 1;
         connectionDistanceY = 1;
+    }
+
+    public void setup(){
+        super.setup();
+        stack = new Stack<GameItem>();
+        drawables = new ArrayList<GameItem>();
     }
 
     protected void checkConnections(){

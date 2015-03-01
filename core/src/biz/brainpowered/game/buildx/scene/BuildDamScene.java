@@ -31,8 +31,6 @@ public class BuildDamScene extends GameScene {
     public void setup(){
         super.setup();
         reset();
-        stack = new Stack<GameItem>();
-        drawables = new ArrayList<GameItem>();
         stack.push(new GameItem(Assets.damCap, randomYPos(Assets.damCap), 40));
         drawables.add(stack.peek());
         stack.push(new GameItem(Assets.damWall, 20, 9));
@@ -48,9 +46,14 @@ public class BuildDamScene extends GameScene {
         state = PRE_RUN;
     }
 
+    /**
+     * todo: implement separate update function (updateRun, updatePreRun, updateEnd)
+     * @param delta delta time
+     */
     public void update(float delta){
         super.update(delta);
 
+        // for custom state actions
         if(state == PRE_RUN){
 
         }else if(state == RUN){

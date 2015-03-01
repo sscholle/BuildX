@@ -35,6 +35,9 @@ public class GameItem{
         init();
     }
 
+    /**
+     * todo: init separately
+     */
     public void init() {
         connectionPoints = new Vector<Vector2>();
         receptionPoints = new Vector<Vector2>();
@@ -109,11 +112,21 @@ public class GameItem{
         return isReceiving;
     }
 
+    /**
+     * Should be overriden
+     * @param delta
+     * @param batch SpriteBatch to draw the sprite onto
+     */
     public void update(float delta, SpriteBatch batch){
         if(isConnecting)checkInput();
         sprite.draw(batch);
     }
 
+    /**
+     * standard checkInput function for GameItem interaction
+     * not necessary to use this implementation
+     * best to build a custom input checker (override) for your custom GameItems
+     */
     public void checkInput()
     {
         if ((lastInputCheck + 0.033f) < (elapsedTime))

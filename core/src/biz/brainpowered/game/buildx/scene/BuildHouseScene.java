@@ -28,8 +28,6 @@ public class BuildHouseScene extends GameScene {
     public void setup(){
         super.setup();
         reset();
-        stack = new Stack<GameItem>();
-        drawables = new ArrayList<GameItem>();
         stack.push(new GameItem(Assets.roof, randomYPos(Assets.roof), 40));
         drawables.add(stack.peek());
         stack.push(new GameItem(Assets.walls, 20, 9));

@@ -29,8 +29,6 @@ public class BuildRobotScene extends GameScene {
     public void setup(){
         super.setup();
         reset();
-        stack = new Stack<GameItem>();
-        drawables = new ArrayList<GameItem>();
         stack.push(new GameItem(Assets.robotHead, randomYPos(Assets.robotHead), 40));
         drawables.add(stack.peek());
         stack.push(new RobotBodyGameItem(Assets.robotBody, 20, 9));

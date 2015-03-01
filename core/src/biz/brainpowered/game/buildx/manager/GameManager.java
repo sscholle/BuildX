@@ -33,6 +33,9 @@ public class GameManager {
         totalTime = 0.0f;
     }
 
+    /**
+     * construct all scenes
+     */
     public void init(){
         winScene = new WinScene();
         looseScene = new WinScene();
@@ -42,10 +45,15 @@ public class GameManager {
         gameScenes.add(new BuildRobotScene());
         gameScenes.add(new BuildDamScene());
         gameScenes.add(new HammerNailScene());
+        gameScenes.add(new ChopWoodScene());
         currentScene = getNextGameScene();
         currentScene.setup();
     }
 
+    /**
+     * note: not currently used
+     * @param level integer between 1 and 3
+     */
     public void setLevel(int level) {
         this.level = level;
         switch(level){
@@ -64,7 +72,7 @@ public class GameManager {
     /**
      * randomly select and return a game Scene that isn't the same as last scene
      * note: requires a minimum of 2 gameScenes
-     * @return
+     * @return Scene
      */
     public Scene getNextGameScene(){
         //int nextGameIndex = 0;
@@ -75,6 +83,10 @@ public class GameManager {
         return gameScenes.get(currentGameIndex);
     }
 
+    /**
+     * standard update function - manage scoring and scene transition
+     * @param delta time delta
+     */
     public void update(float delta){
 
         if(currentScene.isRunning()) {

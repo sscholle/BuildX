@@ -31,17 +31,12 @@ public class HammerNailScene extends GameScene {
     public void setup(){
         super.setup();
         reset();
-        stack = new Stack<GameItem>();
-        drawables = new ArrayList<GameItem>();
         stack.push(new HammerGameItem(Assets.hammer, randomYPos(Assets.hammer), 40));
         drawables.add(stack.peek());
         stack.peek().setConnectionPoint(0, new Vector2(stack.peek().getSprite().getWidth() / 2 + 14, 0.0f));
         stack.push(new GameItem(Assets.nail, randomYPos(Assets.nail), 0));
         drawables.add(stack.peek());
-        //stack.push(new GameItem(Assets.ground, 0, 0));
-        //drawables.add(stack.peek());
 
-        //connect(stack.pop(), stack.pop());
         receivingItem = stack.pop();// pop nail
         currentGameItem = stack.pop();
         currentGameItem.setConnecting(true);
