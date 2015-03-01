@@ -18,6 +18,7 @@ import java.util.Vector;
 public class Scene {
     protected SpriteBatch batch;
     protected BitmapFont bmFont;
+    protected Color backgroundColour;
 
     protected Stack<GameItem> stack;
     protected ArrayList<GameItem> drawables;

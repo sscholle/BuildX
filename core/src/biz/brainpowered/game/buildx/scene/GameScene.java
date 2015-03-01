@@ -4,6 +4,7 @@ import biz.brainpowered.game.buildx.BuildX;
 import biz.brainpowered.game.buildx.gameitem.GameItem;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.GL20;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -19,6 +20,7 @@ public class GameScene extends Scene {
         super(time);
         connectionDistanceX = 1;
         connectionDistanceY = 1;
+        backgroundColour = Color.WHITE;
     }
 
     public void setup(){
@@ -66,6 +68,9 @@ public class GameScene extends Scene {
 
     public void update(float delta) {
         super.update(delta);
+        GL20 gl = Gdx.gl;
+        gl.glClearColor(backgroundColour.r, backgroundColour.g, backgroundColour.b, 0.0f);
+        gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         if(state == PRE_RUN){
             if(preRun >= elapsedTime) {

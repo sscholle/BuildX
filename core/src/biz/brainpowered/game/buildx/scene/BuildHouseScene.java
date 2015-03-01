@@ -5,6 +5,7 @@ import biz.brainpowered.game.buildx.Core;
 import biz.brainpowered.game.buildx.asset.Assets;
 import biz.brainpowered.game.buildx.gameitem.GameItem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 
 import java.util.*;
@@ -19,6 +20,7 @@ public class BuildHouseScene extends GameScene {
         this.batch = Core.batcher;
         bmFont = Assets.font;
         verbNoun = "BUILD HOUSE";
+        backgroundColour = Color.valueOf("00FFFF");
     }
 
     public void reset(){
@@ -42,31 +44,7 @@ public class BuildHouseScene extends GameScene {
     }
 
     public void update(float delta){
-
-        if(state == PRE_RUN){
-            if(preRun >= elapsedTime) {
-                drawVerb();
-            }else {
-                state = RUN;
-            }
-
-        }else if(state == RUN){
-            checkConnections();
-            for (int x = 0; x < drawables.size(); x++){
-                drawables.get(x).update(delta, batch);
-            }
-            drawTimer();
-            if (elapsedRunTime >= runTime)
-                loose();
-            elapsedRunTime += Gdx.graphics.getDeltaTime();
-
-        }else if(state == END){
-            drawWinState();
-            if(elapsedEndTime >= endTime){
-                state = FINISHED;
-            }
-            elapsedEndTime += Gdx.graphics.getDeltaTime();
-        }
+        super.update(delta);
 
         elapsedTime += Gdx.graphics.getDeltaTime();
     }

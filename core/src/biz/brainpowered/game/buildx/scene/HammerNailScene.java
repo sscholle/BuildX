@@ -6,6 +6,7 @@ import biz.brainpowered.game.buildx.gameitem.GameItem;
 import biz.brainpowered.game.buildx.gameitem.HammerGameItem;
 import biz.brainpowered.game.buildx.gameitem.RobotBodyGameItem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class HammerNailScene extends GameScene {
         bmFont = Assets.font;
         verbNoun = "HAMMER NAIL";
         connectionDistanceX = 5;
+        backgroundColour = Color.valueOf("7F6A00");
     }
 
     public void reset(){

@@ -6,6 +6,7 @@ import biz.brainpowered.game.buildx.asset.Assets;
 import biz.brainpowered.game.buildx.gameitem.GameItem;
 import biz.brainpowered.game.buildx.gameitem.RobotBodyGameItem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -20,6 +21,7 @@ public class BuildRobotScene extends GameScene {
         this.batch = Core.batcher;
         bmFont = Assets.font;
         verbNoun = "BUILD ROBOT";
+        backgroundColour = Color.valueOf("FFAEC9");
     }
 
     public void reset(){

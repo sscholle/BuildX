@@ -23,7 +23,7 @@ public class GameManager {
     private int losses;
     private float totalTime;
 
-    private int lastGameIndex = 0;
+    private int lastGameIndex = -1;
     private int currentGameIndex = -1;
 
     public GameManager(int firstLevel){
@@ -75,10 +75,13 @@ public class GameManager {
      * @return Scene
      */
     public Scene getNextGameScene(){
-        //int nextGameIndex = 0;
+        int nextGameIndex = 0;
         do{
-            currentGameIndex = (int)(Math.random() * gameScenes.size());
-            if(lastGameIndex != currentGameIndex) lastGameIndex = currentGameIndex;
+            nextGameIndex = (int)(Math.random() * gameScenes.size());
+            if(lastGameIndex != nextGameIndex) {
+                currentGameIndex = nextGameIndex;
+                lastGameIndex = currentGameIndex;
+            }
         } while(lastGameIndex != currentGameIndex);
         return gameScenes.get(currentGameIndex);
     }

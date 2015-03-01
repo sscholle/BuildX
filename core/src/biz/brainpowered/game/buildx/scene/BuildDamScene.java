@@ -4,6 +4,7 @@ import biz.brainpowered.game.buildx.Core;
 import biz.brainpowered.game.buildx.asset.Assets;
 import biz.brainpowered.game.buildx.gameitem.GameItem;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class BuildDamScene extends GameScene {
         this.batch = Core.batcher;
         bmFont = Assets.font;
         verbNoun = "BUILD DAM";
+        backgroundColour =  Color.valueOf("99D9EA");
     }
 
     public void reset(){

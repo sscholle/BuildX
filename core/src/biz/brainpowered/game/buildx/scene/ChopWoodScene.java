@@ -6,6 +6,7 @@ import biz.brainpowered.game.buildx.asset.Assets;
 import biz.brainpowered.game.buildx.gameitem.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ public class ChopWoodScene extends GameScene {
         //connectionDistanceX = 5;
         chopProgress = 0.5f; // scale
         elapsedChopTime = 0.0f;
+        backgroundColour = Color.valueOf("0094FF");
     }
 
     public void reset(){
