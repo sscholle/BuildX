@@ -5,7 +5,7 @@ buildscript {
     }
     dependencies {
         classpath 'de.richsource.gradle.plugins:gwt-gradle-plugin:0.5'
-        classpath 'com.android.tools.build:gradle:0.13+'
+        classpath 'com.android.tools.build:gradle:0.14.2'
         classpath 'org.robovm:robovm-gradle-plugin:1.0.0-beta-01'
     }
 }
@@ -57,6 +57,8 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-android:$gdxVersion"
+
+        compile fileTree(dir: '../libs', include: '*.jar')
     }
 }
 
@@ -72,6 +74,8 @@ project(":ios") {
         compile "org.robovm:robovm-cocoatouch:${roboVMVersion}"
         compile "com.badlogicgames.gdx:gdx-backend-robovm:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-ios"
+
+        compile fileTree(dir: '../libs', include: '*.jar')
     }
 }
 
@@ -88,6 +92,8 @@ project(":html") {
         compile "com.badlogicgames.gdx:gdx-controllers:$gdxVersion:sources"
         compile "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion"
         compile "com.badlogicgames.gdx:gdx-controllers-gwt:$gdxVersion:sources"
+
+        compile fileTree(dir: '../libs', include: '*.jar')
     }
 }
 
